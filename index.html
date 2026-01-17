@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Amortissements - Guide Simple pour la Restauration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .definition {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .formula {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #e65100;
+        }
+        
+        .example {
+            background: #e8f5e9;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .example h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .quiz {
+            background: #fce4ec;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #e91e63;
+        }
+        
+        .quiz h3 {
+            color: #c2185b;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .question {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .question p {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        
+        .option.selected {
+            background: #bbdefb;
+            border-color: #1976d2;
+        }
+        
+        .option.correct {
+            background: #c8e6c9;
+            border-color: #4caf50;
+        }
+        
+        .option.incorrect {
+            background: #ffcdd2;
+            border-color: #f44336;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .result {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .result.hide {
+            display: none;
+        }
+        
+        .tips {
+            background: #fff9c4;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #fbc02d;
+        }
+        
+        .tips h4 {
+            color: #f57f17;
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .step {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+        
+        .step strong {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍽️ Les Amortissements</h1>
+            <p>Tout comprendre simplement avec des exemples de resto !</p>
+        </header>
+        
+        <div class="content">
+            <!-- Section 1: C'est quoi un amortissement ? -->
+            <div class="section">
+                <h2>📚 C'est quoi un amortissement ?</h2>
+                
+                <div class="definition">
+                    <strong>Imagine :</strong> Le restaurant achète une machine à café professionnelle à 10 000€. 
+                    Après 5 ans d'utilisation intensive, elle ne vaut plus que 2 000€. Elle a perdu de la valeur !
+                    <br><br>
+                    <strong>L'amortissement</strong> = C'est comptabiliser cette perte de valeur année après année.
+                </div>
+                
+                <div class="tips">
+                    <h4>💡 Pourquoi c'est important ?</h4>
+                    <ul>
+                        <li>Étaler le coût d'une machine sur plusieurs années (pas tout d'un coup)</li>
+                        <li>Prévoir l'argent pour racheter du matériel plus tard</li>
+                        <li>Payer moins d'impôts (l'amortissement réduit le bénéfice)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Section 2: Les mots à connaître -->
+            <div class="section">
+                <h2>📖 Le vocabulaire clé</h2>
+                
+                <div class="step">
+                    <strong>VO (Valeur d'Origine)</strong> = Prix d'achat total du matériel
+                    <br>Ex: Four à pizza = 15 000€
+                </div>
+                
+                <div class="step">
+                    <strong>N (Durée de vie)</strong> = Nombre d'années d'utilisation
+                    <br>Ex: Four utilisable pendant 10 ans
+                </div>
+                
+                <div class="step">
+                    <strong>tx (Taux d'amortissement)</strong> = Pourcentage amorti chaque année
+                    <br>Ex: Si N = 10 ans → tx = 100/10 = 10%
+                </div>
+                
+                <div class="step">
+                    <strong>a (Annuité)</strong> = Montant amorti chaque année
+                    <br>Ex: 15 000€ × 10% = 1 500€ par an
+                </div>
+                
+                <div class="step">
+                    <strong>CA (Cumul d'Amortissement)</strong> = Total amorti depuis l'achat
+                    <br>Ex: Après 3 ans → 1 500€ × 3 = 4 500€
+                </div>
+                
+                <div class="step">
+                    <strong>VNC (Valeur Nette Comptable)</strong> = Valeur actuelle du matériel
+                    <br>Ex: VNC = 15 000€ - 4 500€ = 10 500€
+                </div>
+            </div>
+            
+            <!-- Section 3: Les formules magiques -->
+            <div class="section">
+                <h2>🧮 Les formules expliquées SIMPLEMENT</h2>
+                
+                <!-- FORMULE 1 : LE TAUX -->
+                <div style="background: white; padding: 25px; border-radius: 15px; margin: 20px 0; border: 3px solid #667eea;">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">📊 FORMULE 1 : Le Taux d'amortissement</h3>
+                    
+                    <div class="formula">
+                        Taux = 100 ÷ Nombre d'années
+                    </div>
+                    
+                    <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h4 style="color: #1976d2;">🤔 Pourquoi 100 ?</h4>
+                        <p>Parce qu'on veut amortir <strong>100% de la valeur</strong> sur la durée de vie !</p>
+                        <p>Si la machine dure 5 ans, on amortit 100% ÷ 5 = <strong>20% par an</strong></p>
+                    </div>
+                    
+                    <div style="background: #fff3e0; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h4 style="color: #e65100;">📝 Exemples concrets :</h4>
+                        <div class="step">
+                            <strong>Exemple 1 :</strong> Machine qui dure <span class="highlight">4 ans</span>
+                            <br>→ Taux = 100 ÷ 4 = <span class="highlight">25%</span> par an
+                            <br>💡 Chaque année, on compte 25% de perte
+                        </div>
+                        <div class="step">
+                            <strong>Exemple 2 :</strong> Four qui dure <span class="highlight">10 ans</span>
+                            <br>→ Taux = 100 ÷ 10 = <span class="highlight">10%</span> par an
+                            <br>💡 Chaque année, on compte 10% de perte
+                        </div>
+                        <div class="step">
+                            <strong>Exemple 3 :</strong> Frigo qui dure <span class="highlight">8 ans</span>
+                            <br>→ Taux = 100 ÷ 8 = <span class="highlight">12,5%</span> par an
+                            <br>💡 Chaque année, on compte 12,5% de perte
+                        </div>
+                    </div>
+                    
+                    <div class="tips">
+                        <h4>✅ Truc pour retenir :</h4>
+                        Plus la durée est LONGUE → Taux PETIT (la machine perd peu chaque année)
+                        <br>Plus la durée est COURTE → Taux GRAND (la machine perd beaucoup chaque année)
+                    </div>
+                </div>
+                
+                <!-- FORMULE 2 : L'ANNUITÉ -->
+                <div style="background: white; padding: 25px; border-radius: 15px; margin: 20px 0; border: 3px solid #4caf50;">
+                    <h3 style="color: #4caf50; margin-bottom: 20px;">💰 FORMULE 2 : L'Annuité (combien on amortit par an)</h3>
+                    
+                    <div class="formula">
+                        Annuité = Prix d'achat × Taux ÷ 100
+                    </div>
+                    
+                    <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h4 style="color: #2e7d32;">🎯 En clair :</h4>
+                        <p>L'annuité = <strong>L'argent qu'on "met de côté" chaque année</strong></p>
+                        <p>C'est comme économiser pour racheter la machine plus tard !</p>
+                    </div>
+                    
+                    <div style="background: #fff3e0; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h4 style="color: #e65100;">📝 Exercice guidé pas à pas :</h4>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #ff9800;">
+                            <strong>🍕 Machine à pizza achetée 9 000€ pour 5 ans</strong>
+                            <br><br>
+                            <strong>ÉTAPE 1 :</strong> Je calcule le taux
+                            <br>→ Taux = 100 ÷ 5 = <span class="highlight">20%</span>
+                            <br><br>
+                            <strong>ÉTAPE 2 :</strong> Je calcule l'annuité
+                            <br>→ Annuité = 9 000€ × 20 ÷ 100
+                            <br>→ Annuité = 9 000€ × 0,20
+                            <br>→ Annuité = <span class="highlight">1 800€</span> par an
+                            <br><br>
+                            <strong>✅ Résultat :</strong> Chaque année, la machine perd 1 800€ de valeur
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #ff9800;">
+                            <strong>🥐 Four professionnel acheté 12 000€ pour 8 ans</strong>
+                            <br><br>
+                            <strong>ÉTAPE 1 :</strong> Taux = 100 ÷ 8 = <span class="highlight">12,5%</span>
+                            <br><br>
+                            <strong>ÉTAPE 2 :</strong> Annuité = 12 000€ × 12,5 ÷ 100
+                            <br>→ Annuité = 12 000€ × 0,125
+                            <br>→ Annuité = <span class="highlight">1 500€</span> par an
+                        </div>
+                    </div>
+                    
+                    <div class="tips" style="background: #ffebee; border-left-color: #f44336;">
+                        <h4 style="color: #c62828;">⚠️ CAS SPÉCIAL : Achat en cours d'année</h4>
+                        <p><strong>Si tu achètes le 1er mai au lieu du 1er janvier :</strong></p>
+                        <p>Tu ne gardes la machine que <span class="highlight">8 mois</span> la première année (mai à décembre)</p>
+                        <br>
+                        <strong>Nouvelle formule :</strong>
+                        <br>Annuité 1ère année = Annuité normale × (nombre de mois ÷ 12)
+                        <br><br>
+                        <strong>Exemple concret :</strong>
+                        <br>Machine à 6 000€ pour 5 ans, achetée le 1er avril
+                        <br>→ Taux = 100 ÷ 5 = 20%
+                        <br>→ Annuité normale = 6 000€ × 20% = 1 200€
+                        <br>→ Mais achat en avril = seulement <span class="highlight">9 mois</span> (avril → décembre)
+                        <br>→ Annuité 1ère année = 1 200€ × (9 ÷ 12) = 1 200€ × 0,75 = <span class="highlight">900€</span>
+                    </div>
+                </div>
+                
+                <!-- FORMULE 3 : LA VNC -->
+                <div style="background: white; padding: 25px; border-radius: 15px; margin: 20px 0; border: 3px solid #e91e63;">
+                    <h3 style="color: #e91e63; margin-bottom: 20px;">📉 FORMULE 3 : La VNC (Valeur actuelle de la machine)</h3>
+                    
+                    <div class="formula">
+                        VNC = Prix d'achat - Total amorti
+                    </div>
+                    
+                    <div style="background: #fce4ec; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h4 style="color: #c2185b;">🎯 C'est quoi la VNC ?</h4>
+                        <p><strong>V</strong>aleur <strong>N</strong>ette <strong>C</strong>omptable = Ce que vaut ENCORE la machine aujourd'hui</p>
+                        <p>💡 Imagine : Tu as acheté un téléphone 1 000€. Après 2 ans, il vaut combien ? Peut-être 400€. C'est ça la VNC !</p>
+                    </div>
+                    
+                    <div style="background: #fff3e0; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h4 style="color: #e65100;">📝 Exemple ultra-détaillé :</h4>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #9c27b0;">
+                            <strong>🍔 Friteuse achetée 5 000€ pour 5 ans</strong>
+                            <br><br>
+                            <strong>Calculs préliminaires :</strong>
+                            <br>→ Taux = 100 ÷ 5 = 20%
+                            <br>→ Annuité = 5 000€ × 20% = 1 000€ par an
+                            <br><br>
+                            <strong style="color: #9c27b0;">📅 Après 1 an :</strong>
+                            <br>→ Total amorti (CA) = 1 000€
+                            <br>→ VNC = 5 000€ - 1 000€ = <span class="highlight">4 000€</span>
+                            <br>💡 La friteuse vaut encore 4 000€
+                            <br><br>
+                            <strong style="color: #9c27b0;">📅 Après 2 ans :</strong>
+                            <br>→ Total amorti (CA) = 1 000€ + 1 000€ = 2 000€
+                            <br>→ VNC = 5 000€ - 2 000€ = <span class="highlight">3 000€</span>
+                            <br>💡 La friteuse vaut encore 3 000€
+                            <br><br>
+                            <strong style="color: #9c27b0;">📅 Après 3 ans :</strong>
+                            <br>→ Total amorti (CA) = 3 × 1 000€ = 3 000€
+                            <br>→ VNC = 5 000€ - 3 000€ = <span class="highlight">2 000€</span>
+                            <br><br>
+                            <strong style="color: #9c27b0;">📅 Après 5 ans (fin) :</strong>
+                            <br>→ Total amorti (CA) = 5 × 1 000€ = 5 000€
+                            <br>→ VNC = 5 000€ - 5 000€ = <span class="highlight">0€</span>
+                            <br>💡 La friteuse ne vaut plus rien comptablement !
+                        </div>
+                    </div>
+                    
+                    <div class="tips">
+                        <h4>✅ À retenir :</h4>
+                        <ul>
+                            <li>Au début → VNC est ÉLEVÉE (machine presque neuve)</li>
+                            <li>Chaque année → VNC DIMINUE de l'annuité</li>
+                            <li>À la fin → VNC = 0€ (machine totalement amortie)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- CALCULATEUR INTERACTIF -->
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 15px; margin: 30px 0; color: white;">
+                    <h3 style="margin-bottom: 20px; text-align: center;">🎮 CALCULATEUR INTERACTIF - Essaie toi-même !</h3>
+                    
+                    <div style="background: white; padding: 25px; border-radius: 10px; color: #333;">
+                        <div style="margin: 15px 0;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px;">💰 Prix d'achat (€) :</label>
+                            <input type="number" id="calcVO" style="width: 100%; padding: 10px; border: 2px solid #667eea; border-radius: 5px; font-size: 16px;" placeholder="Ex: 10000" value="10000">
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px;">⏱️ Durée de vie (années) :</label>
+                            <input type="number" id="calcN" style="width: 100%; padding: 10px; border: 2px solid #667eea; border-radius: 5px; font-size: 16px;" placeholder="Ex: 5" value="5">
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 5px;">📅 Nombre de mois la 1ère année :</label>
+                            <input type="number" id="calcMois" style="width: 100%; padding: 10px; border: 2px solid #667eea; border-radius: 5px; font-size: 16px;" placeholder="12 si achat en janvier" value="12" min="1" max="12">
+                            <small style="color: #666;">12 mois = achat au début de l'année / 6 mois = achat en juillet, etc.</small>
+                        </div>
+                        
+                        <button onclick="calculer()" style="width: 100%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); margin-top: 10px;">
+                            ✨ CALCULER
+                        </button>
+                        
+                        <div id="resultCalcul" style="margin-top: 20px;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 4: Exemple complet -->
+            <div class="section">
+                <h2>🎯 Exemple complet : La Friteuse</h2>
+                
+                <div class="example">
+                    <h3>Données :</h3>
+                    <ul>
+                        <li>🍟 Friteuse professionnelle achetée le <span class="highlight">01/04/2021</span></li>
+                        <li>💰 Prix d'achat : <span class="highlight">6 000€</span></li>
+                        <li>⏱️ Durée de vie : <span class="highlight">5 ans</span></li>
+                        <li>📅 Valeur résiduelle : <span class="highlight">0€</span></li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 20px;">Calculs :</h3>
+                    
+                    <div class="step">
+                        <strong>Étape 1 :</strong> Calcul du taux
+                        <br>tx = 100 / 5 = <span class="highlight">20%</span>
+                    </div>
+                    
+                    <div class="step">
+                        <strong>Étape 2 :</strong> Base d'amortissement
+                        <br>Base = VO - Valeur résiduelle = 6 000€ - 0€ = <span class="highlight">6 000€</span>
+                    </div>
+                    
+                    <div class="step">
+                        <strong>Étape 3 :</strong> Annuité normale (année complète)
+                        <br>a = 6 000€ × 20% = <span class="highlight">1 200€</span>
+                    </div>
+                    
+                    <div class="step">
+                        <strong>Étape 4 :</strong> 1ère année (du 01/04 au 31/12/2021 = 9 mois)
+                        <br>a₁ = 6 000€ × 20% × (9/12) = <span class="highlight">900€</span>
+                    </div>
+                    
+                    <h3 style="margin-top: 20px;">Plan d'amortissement :</h3>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Années</th>
+                                <th>Base</th>
+                                <th>Annuité (a)</th>
+                                <th>Cumul (CA)</th>
+                                <th>VNC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>01/04 au 31/12/2021</td>
+                                <td>6 000€</td>
+                                <td>900€</td>
+                                <td>900€</td>
+                                <td>5 100€</td>
+                            </tr>
+                            <tr>
+                                <td>2022</td>
+                                <td>-</td>
+                                <td>1 200€</td>
+                                <td>2 100€</td>
+                                <td>3 900€</td>
+                            </tr>
+                            <tr>
+                                <td>2023</td>
+                                <td>-</td>
+                                <td>1 200€</td>
+                                <td>3 300€</td>
+                                <td>2 700€</td>
+                            </tr>
+                            <tr>
+                                <td>2024</td>
+                                <td>-</td>
+                                <td>1 200€</td>
+                                <td>4 500€</td>
+                                <td>1 500€</td>
+                            </tr>
+                            <tr>
+                                <td>2025</td>
+                                <td>-</td>
+                                <td>1 200€</td>
+                                <td>5 700€</td>
+                                <td>300€</td>
+                            </tr>
+                            <tr>
+                                <td>Jusqu'au 31/03/2026</td>
+                                <td>-</td>
+                                <td>300€</td>
+                                <td>6 000€</td>
+                                <td>0€</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Section 5: Les suites arithmétiques -->
+            <div class="section">
+                <h2>📊 Les suites arithmétiques (VNC)</h2>
+                
+                <div class="definition">
+                    Les VNC forment une <strong>suite arithmétique</strong> car elles diminuent du même montant chaque année !
+                    <br><br>
+                    Dans l'exemple de la friteuse : 5 100€ → 3 900€ → 2 700€ → 1 500€
+                    <br>Raison = -1 200€ (on enlève toujours 1 200€)
+                </div>
+                
+                <div class="tips">
+                    <h4>💡 Pour les exercices :</h4>
+                    <ul>
+                        <li><strong>Premier terme</strong> = VO - première annuité</li>
+                        <li><strong>Raison</strong> = -annuité (négative car ça diminue)</li>
+                        <li><strong>Dernier terme</strong> = 0€ (ou valeur résiduelle)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- QCM Section -->
+            <div class="quiz">
+                <h3>🎯 QCM d'entraînement</h3>
+                
+                <div class="question" id="q1">
+                    <p>Question 1 : Un restaurant achète une machine à 12 000€ pour 6 ans. Quel est le taux d'amortissement ?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectAnswer(1, 0)">A) 12%</div>
+                        <div class="option" onclick="selectAnswer(1, 1)">B) 16,67%</div>
+                        <div class="option" onclick="selectAnswer(1, 2)">C) 20%</div>
+                        <div class="option" onclick="selectAnswer(1, 3)">D) 6%</div>
+                    </div>
+                </div>
+                
+                <div class="question" id="q2">
+                    <p>Question 2 : Four acheté 18 000€ le 01/07/2020 pour 9 ans. Quelle est l'annuité de la première année ?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectAnswer(2, 0)">A) 2 000€</div>
+                        <div class="option" onclick="selectAnswer(2, 1)">B) 1 000€</div>
+                        <div class="option" onclick="selectAnswer(2, 2)">C) 1 500€</div>
+                        <div class="option" onclick="selectAnswer(2, 3)">D) 2 500€</div>
+                    </div>
+                </div>
+                
+                <div class="question" id="q3">
+                    <p>Question 3 : Machine de 15 000€, amortie de 3 000€/an. Après 2 ans, quelle est la VNC ?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectAnswer(3, 0)">A) 12 000€</div>
+                        <div class="option" onclick="selectAnswer(3, 1)">B) 9 000€</div>
+                        <div class="option" onclick="selectAnswer(3, 2)">C) 6 000€</div>
+                        <div class="option" onclick="selectAnswer(3, 3)">D) 3 000€</div>
+                    </div>
+                </div>
+                
+                <div class="question" id="q4">
+                    <p>Question 4 : Matériel acheté 24 000€ pour 8 ans. Quelle est l'annuité constante ?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectAnswer(4, 0)">A) 2 400€</div>
+                        <div class="option" onclick="selectAnswer(4, 1)">B) 3 000€</div>
+                        <div class="option" onclick="selectAnswer(4, 2)">C) 3 200€</div>
+                        <div class="option" onclick="selectAnswer(4, 3)">D) 8 000€</div>
+                    </div>
+                </div>
+                
+                <div class="question" id="q5">
+                    <p>Question 5 : Les VNC dans un amortissement linéaire forment quelle suite ?</p>
+                    <div class="options">
+                        <div class="option" onclick="selectAnswer(5, 0)">A) Suite géométrique</div>
+                        <div class="option" onclick="selectAnswer(5, 1)">B) Suite arithmétique</div>
+                        <div class="option" onclick="selectAnswer(5, 2)">C) Suite aléatoire</div>
+                        <div class="option" onclick="selectAnswer(5, 3)">D) Suite constante</div>
+                    </div>
+                </div>
+                
+                <button onclick="checkAnswers()">Vérifier mes réponses</button>
+                
+                <div id="result" class="result hide"></div>
+            </div>
+            
+            <!-- Astuces finales -->
+            <div class="section">
+                <h2>✨ Astuces pour réussir</h2>
+                
+                <div class="tips">
+                    <h4>📝 Méthode pour un exercice :</h4>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li>Lire l'énoncé et noter : VO, date d'achat, durée N</li>
+                        <li>Calculer le taux : tx = 100/N</li>
+                        <li>Calculer la base : VO - valeur résiduelle</li>
+                        <li>Calculer l'annuité normale : a = base × tx</li>
+                        <li>Ajuster la 1ère année si nécessaire (prorata mois)</li>
+                        <li>Remplir le tableau ligne par ligne</li>
+                        <li>Vérifier : dernière VNC = 0 (ou valeur résiduelle)</li>
+                    </ol>
+                </div>
+                
+                <div class="tips" style="background: #e1f5fe; border-left-color: #0277bd;">
+                    <h4 style="color: #01579b;">🎓 Pour le devoir de mardi :</h4>
+                    <ul>
+                        <li>Apprends les 3 formules par cœur</li>
+                        <li>Entraîne-toi à calculer le taux rapidement</li>
+                        <li>Fais attention aux dates d'achat (prorata !)</li>
+                        <li>Vérifie toujours que VNC finale = 0</li>
+                        <li>Relis bien l'énoncé pour la valeur résiduelle</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const answers = {
+            1: 1, // 100/6 = 16,67%
+            2: 1, // 18000 × (100/9) × 6/12 = 1000€
+            3: 1, // 15000 - (3000×2) = 9000€
+            4: 1, // 24000 × (100/8) = 3000€
+            5: 1  // Suite arithmétique
+        };
+        
+        const userAnswers = {};
+        
+        function selectAnswer(question, option) {
+            userAnswers[question] = option;
+            const options = document.querySelectorAll(`#q${question} .option`);
+            options.forEach((opt, idx) => {
+                opt.classList.remove('selected');
+                if (idx === option) {
+                    opt.classList.add('selected');
+                }
+            });
+        }
+        
+        function checkAnswers() {
+            let score = 0;
+            const total = Object.keys(answers).length;
+            
+            for (let q in answers) {
+                const options = document.querySelectorAll(`#q${q} .option`);
+                options.forEach((opt, idx) => {
+                    opt.classList.remove('correct', 'incorrect', 'selected');
+                    if (idx === answers[q]) {
+                        opt.classList.add('correct');
+                    }
+                    if (userAnswers[q] !== undefined && idx === userAnswers[q] && userAnswers[q] !== answers[q]) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                
+                if (userAnswers[q] === answers[q]) {
+                    score++;
+                }
+            }
+            
+            const result = document.getElementById('result');
+            result.classList.remove('hide');
+            result.classList.add('show');
+            
+            const percentage = (score / total) * 100;
+            let message = '';
+            let color = '';
+            
+            if (percentage === 100) {
+                message = `🎉 Parfait ! ${score}/${total} - Tu maîtrises le sujet !`;
+                color = '#4caf50';
+            } else if (percentage >= 60) {
+                message = `👍 Bien ! ${score}/${total} - Continue comme ça !`;
+                color = '#ff9800';
+            } else {
+                message = `💪 ${score}/${total} - Révise encore un peu et réessaie !`;
+                color = '#f44336';
+            }
+            
+            result.textContent = message;
+            result.style.background = color;
+            result.style.color = 'white';
+        }
+        
+        function calculer() {
+            const vo = parseFloat(document.getElementById('calcVO').value);
+            const n = parseFloat(document.getElementById('calcN').value);
+            const mois = parseFloat(document.getElementById('calcMois').value);
+            
+            if (!vo || !n || !mois || mois < 1 || mois > 12) {
+                document.getElementById('resultCalcul').innerHTML = `
+                    <div style="background: #ffcdd2; padding: 15px; border-radius: 8px; color: #c62828;">
+                        ❌ Vérifie tes valeurs ! Le nombre de mois doit être entre 1 et 12.
+                    </div>
+                `;
+                return;
+            }
+            
+            // Calculs
+            const taux = 100 / n;
+            const annuiteNormale = vo * taux / 100;
+            const annuitePremiere = annuiteNormale * (mois / 12);
+            
+            // Génération du tableau
+            let tableauHTML = `
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 15px;">✅ RÉSULTATS :</h4>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <strong>📊 ÉTAPE 1 - Calcul du taux :</strong>
+                        <br>Taux = 100 ÷ ${n} = <span style="background: #ffeb3b; padding: 2px 8px; border-radius: 3px; font-weight: bold;">${taux.toFixed(2)}%</span>
+                    </div>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <strong>💰 ÉTAPE 2 - Annuité normale (année complète) :</strong>
+                        <br>Annuité = ${vo.toLocaleString()}€ × ${taux.toFixed(2)}% ÷ 100
+                        <br>Annuité = <span style="background: #ffeb3b; padding: 2px 8px; border-radius: 3px; font-weight: bold;">${annuiteNormale.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}€</span> par an
+                    </div>
+            `;
+            
+            if (mois < 12) {
+                tableauHTML += `
+                    <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #ff9800;">
+                        <strong>⚠️ ÉTAPE 3 - Annuité 1ère année (${mois} mois seulement) :</strong>
+                        <br>Annuité 1ère année = ${annuiteNormale.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}€ × (${mois} ÷ 12)
+                        <br>Annuité 1ère année = <span style="background: #ff9800; color: white; padding: 2px 8px; border-radius: 3px; font-weight: bold;">${annuitePremiere.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}€</span>
+                    </div>
+                `;
+            }
+            
+            // Création du tableau d'amortissement
+            tableauHTML += `
+                <h4 style="color: #2e7d32; margin-top: 20px; margin-bottom: 10px;">📋 TABLEAU D'AMORTISSEMENT :</h4>
+                <table style="width: 100%; font-size: 0.9em;">
+                    <thead>
+                        <tr>
+                            <th>Année</th>
+                            <th>Annuité (a)</th>
+                            <th>Cumul (CA)</th>
+                            <th>VNC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            let cumul = 0;
+            let vnc = vo;
+            
+            // Première année
+            cumul += annuitePremiere;
+            vnc = vo - cumul;
+            tableauHTML += `
+                <tr style="background: #fff3e0;">
+                    <td>Année 1 (${mois} mois)</td>
+                    <td>${annuitePremiere.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}€</td>
+                    <td>${cumul.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}€</td>
+                    <td>${vnc.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}€</td>
+                </tr>
+            `;
+            
+            // Années suivantes
+            let anneeActuelle = 2;
+            while (vnc > 0.01 && anneeActuelle <= n + 1) {
+                let annuiteAnnee = annuiteNormale;
+                
+                // Dernière année : on ajuste pour arriver pile à 0
+                if (cumul + annuiteNormale > vo) {
+                    annuiteAnnee = vo - cumul;
+                }
+                
+                cumul += annuiteAnnee;
+                vnc = vo - cumul;
+                
+                if (vnc < 0) vnc = 0;
+                
+                tableauHTML += `
+                    <tr>
+                        <td>Année ${anneeActuelle}</td>
+                        <td>${annuiteAnnee.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}€</td>
+                        <td>${cumul.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}€</td>
+                        <td>${vnc.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}€</td>
+                    </tr>
+                `;
+                
+                anneeActuelle++;
+                if (anneeActuelle > 20) break; // Sécurité
+            }
+            
+            tableauHTML += `
+                    </tbody>
+                </table>
+                
+                <div style="background: #c8e6c9; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #4caf50;">
+                    <strong>✅ Vérification :</strong>
+                    <br>La VNC finale est bien à 0€ = Le matériel est totalement amorti ! 🎉
+                </div>
+            </div>
+            `;
+            
+            document.getElementById('resultCalcul').innerHTML = tableauHTML;
+        }
+    </script>
+</body>
+</html>
