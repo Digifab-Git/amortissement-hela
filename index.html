@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Les Amortissements - Heloucha & Rayhan 💖</title>
     <style>
         * {
@@ -14,12 +14,14 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
+            padding: 10px;
             line-height: 1.6;
+            min-height: 100vh;
         }
         
         .container {
             max-width: 900px;
+            width: 100%;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -27,11 +29,39 @@
             overflow: hidden;
         }
         
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                border-radius: 10px;
+            }
+        }
+        
         header {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
-            padding: 40px;
+            padding: 40px 20px;
             text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 30px 15px;
+            }
+            
+            header h1 {
+                font-size: 1.8em !important;
+            }
+            
+            header h2 {
+                font-size: 1.3em !important;
+            }
+            
+            header p {
+                font-size: 0.95em !important;
+            }
         }
         
         header h1 {
@@ -45,15 +75,33 @@
         }
         
         .content {
-            padding: 40px;
+            padding: 40px 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px 15px;
+            }
         }
         
         .section {
             margin-bottom: 40px;
-            padding: 30px;
+            padding: 30px 20px;
             background: #f8f9fa;
             border-radius: 15px;
             border-left: 5px solid #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .section {
+                margin-bottom: 25px;
+                padding: 20px 15px;
+                border-radius: 10px;
+            }
+            
+            .section h2 {
+                font-size: 1.4em !important;
+            }
         }
         
         .section h2 {
@@ -101,6 +149,19 @@
             background: white;
             border-radius: 8px;
             overflow: hidden;
+            display: block;
+            overflow-x: auto;
+        }
+        
+        @media (max-width: 768px) {
+            table {
+                font-size: 0.85em;
+            }
+            
+            th, td {
+                padding: 8px 10px !important;
+                white-space: nowrap;
+            }
         }
         
         th {
@@ -246,6 +307,95 @@
         .step strong {
             color: #667eea;
         }
+        
+        /* Media Queries pour Mobile */
+        @media (max-width: 768px) {
+            .message-baba {
+                padding: 20px 15px !important;
+                margin: 20px 10px !important;
+            }
+            
+            .message-baba h2 {
+                font-size: 1.5em !important;
+            }
+            
+            .message-baba-content {
+                padding: 20px 15px !important;
+            }
+            
+            .message-baba-content p {
+                font-size: 1em !important;
+            }
+            
+            .message-final {
+                padding: 20px 15px !important;
+                margin: 20px 0 !important;
+            }
+            
+            .message-final h3 {
+                font-size: 1.3em !important;
+            }
+            
+            .message-final p {
+                font-size: 1em !important;
+            }
+            
+            .footer-baba {
+                padding: 25px 15px !important;
+            }
+            
+            .footer-baba p {
+                font-size: 1em !important;
+            }
+            
+            .formula {
+                font-size: 1em !important;
+                padding: 15px !important;
+            }
+            
+            .tips {
+                padding: 15px !important;
+                font-size: 0.95em;
+            }
+            
+            .definition, .example {
+                padding: 15px !important;
+                font-size: 0.95em;
+            }
+            
+            .step {
+                padding: 12px !important;
+                font-size: 0.95em;
+            }
+            
+            .quiz {
+                padding: 20px 15px !important;
+            }
+            
+            .question {
+                padding: 15px !important;
+            }
+            
+            button {
+                padding: 12px 30px !important;
+                font-size: 1em !important;
+            }
+            
+            input[type="number"] {
+                font-size: 16px !important;
+            }
+            
+            /* Message de Baba */
+            div[style*="gradient"] {
+                padding: 25px 15px !important;
+                margin: 20px 10px !important;
+            }
+            
+            /* Titres dans sections colorées */
+            h2, h3, h4 {
+                word-wrap: break-word;
+            }
+        }
     </style>
 </head>
 <body>
@@ -259,10 +409,10 @@
         
         <div class="content">
             <!-- Message personnel de Baba -->
-            <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 35px; border-radius: 20px; margin: 30px 40px; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+            <div class="message-baba" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 35px; border-radius: 20px; margin: 30px 40px; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
                 <h2 style="color: white; text-align: center; margin-bottom: 20px; font-size: 2em;">💌 Message de Baba 💌</h2>
                 
-                <div style="background: rgba(255,255,255,0.95); padding: 30px; border-radius: 15px; color: #333; line-height: 1.8;">
+                <div class="message-baba-content" style="background: rgba(255,255,255,0.95); padding: 30px; border-radius: 15px; color: #333; line-height: 1.8;">
                     <p style="font-size: 1.15em; margin-bottom: 15px;">
                         <strong style="color: #f5576c; font-size: 1.2em;">Ma chère Heloucha 💖</strong>
                     </p>
@@ -1000,7 +1150,7 @@
                     </ul>
                 </div>
                 
-                <div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 25px; border-radius: 15px; margin-top: 25px; text-align: center; border: 3px solid #f5576c;">
+                <div class="message-final" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 25px; border-radius: 15px; margin-top: 25px; text-align: center; border: 3px solid #f5576c;">
                     <h3 style="color: #c2185b; margin-bottom: 15px; font-size: 1.5em;">💝 Message final de Baba</h3>
                     <p style="font-size: 1.1em; color: #333; line-height: 1.8;">
                         <strong>Heloucha</strong>, tu as tout dans cette page pour réussir ton devoir ! 
@@ -1018,7 +1168,7 @@
         </div>
         
         <!-- Footer personnalisé -->
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; color: white; margin-top: 40px;">
+        <div class="footer-baba" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; color: white; margin-top: 40px;">
             <p style="font-size: 1.2em; margin-bottom: 10px;">
                 💝 Page créée avec amour pour Heloucha & Rayhan 💝
             </p>
